@@ -15,3 +15,7 @@ valid_token = {
 invalid_token = {
         'X-API-KEY': 'EXRZWW3-FN9MSY5-QRZEFC5-1111111'
     }
+
+without_token = {
+        'X-API-KEY': ''
+    }
