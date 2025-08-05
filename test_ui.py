@@ -13,17 +13,17 @@ def browser():
     driver.quit()
 
 
-@pytest.mark.parametrize("xpath, query, expected_result", [
-    (UiTestData.LOCATOR_FIND_FILM, UiTestData.SEARCH_QUERY, UiTestData.SEARCH_QUERY),
-    (UiTestData.LOCATOR_FILM_YEAR, UiTestData.FILM_YEAR, UiTestData.FILM_YEAR),
-    (UiTestData.LOCATOR_ACTOR, UiTestData.ACTOR, UiTestData.ACTOR),
-    (UiTestData.LOCATOR_STUDIO, UiTestData.STUDIO, UiTestData.STUDIO),
+@pytest.mark.parametrize("xpath, query", [
+    (UiTestData.LOCATOR_FIND_FILM, UiTestData.SEARCH_QUERY),
+    (UiTestData.LOCATOR_FILM_YEAR, UiTestData.FILM_YEAR),
+    (UiTestData.LOCATOR_ACTOR, UiTestData.ACTOR),
+    (UiTestData.LOCATOR_STUDIO, UiTestData.STUDIO),
 ])
-def test_search(browser, xpath, query, expected_result):
+def test_search(browser, xpath, query):
     search_page = SearchPage(browser)
     search_page.open(UI_CONFIG['kino_search'])
     search_page.enter_search_query(xpath, query)
-    assert expected_result in browser.page_source
+    assert query in browser.page_source
 
 
 def test_search_movie_to_multiple_requests(browser):
