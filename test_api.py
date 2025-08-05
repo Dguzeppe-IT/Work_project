@@ -18,28 +18,19 @@ def test_search_movie_by_name(movie_api, query, expected_status_code):
     assert response.status_code == expected_status_code
 
 
-@pytest.mark.parametrize("query, expected_status_code", [
-    ("Интерстеллар", 401)
-])
-def test_search_without_token(movie_api, query, expected_status_code):
+def test_search_without_token(movie_api):
     movie_api.headers = without_token
-    response = movie_api.search_movie_get(query)
-    assert response.status_code == expected_status_code
+    response = movie_api.search_movie_get("Интерстеллар")
+    assert response.status_code == 401
 
 
-@pytest.mark.parametrize("query, expected_status_code", [
-    ("Интерстеллар", 500)
-])
-def test_search_with_invalid_token(movie_api, query, expected_status_code):
+def test_search_with_invalid_token(movie_api):
     movie_api.headers = invalid_token
-    response = movie_api.search_movie_get(query)
-    assert response.status_code == expected_status_code
+    response = movie_api.search_movie_get("Интерстеллар")
+    assert response.status_code == 500
 
 
-@pytest.mark.parametrize("query, expected_status_code", [
-    ("Интерстеллар", 404)
-])
-def test_search_with_put_method(movie_api, query, expected_status_code):
+def test_search_with_put_method(movie_api):
     movie_api.headers = valid_token
-    response = movie_api.search_movie_put(query)
-    assert response.status_code == expected_status_code
+    response = movie_api.search_movie_put("Интерстеллар")
+    assert response.status_code == 404
